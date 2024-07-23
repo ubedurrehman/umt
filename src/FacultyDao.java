@@ -6,11 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FacultyDao {
-private Connection connection;
 
-    Connection con=ConnectionProvider.getConnection();
+    Connection con=null;
 
     public FacultyDao() throws SQLException {
+      con=  ConnectionProvider.getConnection();
     }
 
     public void insert(FacultyBean facultyBean) {
@@ -21,7 +21,7 @@ private Connection connection;
         try {
             String insertQuery = "INSERT INTO faculty(Fname, Fremarks,createAt) VALUES(?,?,?)";
 
-            facultyBean.setFacultyName("Pharacy");
+            //facultyBean.setFacultyName("Pharacy");
             PreparedStatement stmt = con.prepareStatement(insertQuery);
             stmt.setString(1,facultyBean.getFacultyName());
             stmt.setString(2,facultyBean.getFacultyRemarks());
@@ -38,8 +38,9 @@ private Connection connection;
         }
 
     }
-    public void getAll(){
-       String query = "SELECT * FROM faculty";
+    public void getAll(FacultyBean facultyBean){
+
+        String query = "SELECT * FROM faculty";
     }
 
 
