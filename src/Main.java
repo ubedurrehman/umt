@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -41,7 +42,7 @@ public class Main {
         int fs = ob.nextInt();
 
 
-
+        FacultyDao facultyDao = new FacultyDao(ConnectionProvider.getConnection());
         if(fs== 1){
 
             System.out.println("Enter Faculty Name");
@@ -58,8 +59,52 @@ public class Main {
             facultyBean.setCreateAt(new Date());
 
 
-            FacultyDao facultyDao = new FacultyDao();
             facultyDao.insert(facultyBean);
-         }
+
+         } else if (fs==2) {
+                System.out.println("Enter Fid");
+                int id=ob.nextInt();
+
+                            FacultyBean fb = facultyDao.searchById(id);
+                if (fb == null){
+                    System.out.println("Faculty does not exist given id:"+id);
+                }
+                else {
+                    System.out.println(fb);
+
+                    System.out.println("change column record");
+
+                    System.out.println("Enter Fname");
+                    String name = ob.next();
+                    System.out.println("Enter Fremarks");
+                    String remarks = ob.next();
+
+                    fb.setFacultyName(name);
+                    fb.setFacultyRemarks(remarks);
+
+                //    update(fb);
+                    try {
+                        boolean update = facultyDao.update(fb);
+                        if(update){
+                            System.out.println("Data Updated  Successfully!");
+                        }else{
+                            System.out.println("Data could not be updated ");
+                        }
+                    }catch (Exception ee){
+                        ee.printStackTrace();
+                    }
+                }
+        }  else if(fs==5){
+
+            ArrayList<FacultyBean> listoffac=facultyDao.getAll();
+            for (FacultyBean f: listoffac) {
+System.out.println("---------------------------------------------------");
+                System.out.println(f.getId());
+                System.out.println(f.getFacultyName());
+                System.out.println(f.getFacultyRemarks());
+                System.out.println("---------------------------------------------------");
+
+            }
+        }
     }
 }

@@ -14,6 +14,16 @@ public class FacultyBean {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "FacultyBean{" +
+                "id=" + id +
+                ", facultyName='" + facultyName + '\'' +
+                ", facultyRemarks='" + facultyRemarks + '\'' +
+                ", createAt=" + createAt +
+                '}';
+    }
+
     public String getFacultyName() {
         return facultyName;
     }
