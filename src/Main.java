@@ -39,11 +39,11 @@ public class Main {
         System.out.println("5.  View Faculty");
         System.out.println("EXIT");
         System.out.println("Enter Choice...");
-        int fs = ob.nextInt();
+        int choice = ob.nextInt();
 
 
         FacultyDao facultyDao = new FacultyDao(ConnectionProvider.getConnection());
-        if(fs== 1){
+        if(choice== 1){
 
             System.out.println("Enter Faculty Name");
             String facultyName =ob.next();
@@ -61,11 +61,11 @@ public class Main {
 
             facultyDao.insert(facultyBean);
 
-         } else if (fs==2) {
+         } else if (choice==2) {
                 System.out.println("Enter Fid");
                 int id=ob.nextInt();
+                FacultyBean fb = facultyDao.searchById(id);
 
-                            FacultyBean fb = facultyDao.searchById(id);
                 if (fb == null){
                     System.out.println("Faculty does not exist given id:"+id);
                 }
@@ -81,7 +81,6 @@ public class Main {
 
                     fb.setFacultyName(name);
                     fb.setFacultyRemarks(remarks);
-
                 //    update(fb);
                     try {
                         boolean update = facultyDao.update(fb);
@@ -94,16 +93,27 @@ public class Main {
                         ee.printStackTrace();
                     }
                 }
-        }  else if(fs==5){
+        }  else if(choice==5){
 
             ArrayList<FacultyBean> listoffac=facultyDao.getAll();
             for (FacultyBean f: listoffac) {
-System.out.println("---------------------------------------------------");
+          System.out.println("---------------------------------------------------");
                 System.out.println(f.getId());
                 System.out.println(f.getFacultyName());
                 System.out.println(f.getFacultyRemarks());
                 System.out.println("---------------------------------------------------");
 
+            }
+        }else if (choice == 3) {
+            System.out.println("Enter Faculty ID to delete:");
+            int id = ob.nextInt();
+
+            FacultyBean deleted = facultyDao.delete(id);
+
+            if (deleted) {
+                System.out.println( " deleted successfull"  + id );
+            } else {
+                System.out.println("Failed to delete faculty with ID " + id );
             }
         }
     }

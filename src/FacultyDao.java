@@ -73,7 +73,6 @@ public class FacultyDao {
 
 
     }
-
         //first of all peli check krryo k data kya aaayga
         //    data aaye collection of Faculty manah list of faculties..
             //thek hain na q k get all
@@ -106,4 +105,22 @@ public class FacultyDao {
         }
         return facultyBeans;
     }
+    public FacultyBean delete(int facultyId) {
+        try {
+            String query = "DELETE FROM faculty WHERE Fid = ?";
+            PreparedStatement stmt = con.prepareStatement(query);
+            stmt.setInt(1, facultyId);
+
+            int rs = stmt.executeUpdate();
+            if (rs > 0) {
+                System.out.println("Faculty  ID  deleted successfully" + facultyId);
+            } else {
+                System.out.println("No faculty here " + facultyId);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
