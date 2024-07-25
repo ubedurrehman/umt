@@ -73,31 +73,31 @@ public class FacultyDao {
 
 
     }
-        //first of all peli check krryo k data kya aaayga
-        //    data aaye collection of Faculty manah list of faculties..
-            //thek hain na q k get all
+    //first of all peli check krryo k data kya aaayga
+    //    data aaye collection of Faculty manah list of faculties..
+    //thek hain na q k get all
 
     public ArrayList<FacultyBean> getAll() {
-     //hummiye ek arraylist ka objec banana prryga wahan data hum set krrygy thek
+        //hummiye ek arraylist ka objec banana prryga wahan data hum set krrygy thek
         ArrayList<FacultyBean> facultyBeans = new ArrayList<>();
         //        q k method return listoffacultybean  krrry rha hai
 
         try {
             String query = "SELECT * FROM faculty";
-            PreparedStatement stmt=con.prepareStatement(query);
-           ResultSet resultSet =  stmt.executeQuery();
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet resultSet = stmt.executeQuery();
 
-           while (resultSet.next()){
+            while (resultSet.next()) {
 
-               FacultyBean f = new FacultyBean();
-               f.setFacultyRemarks(resultSet.getString("Fremarks"));
-               f.setFacultyName(resultSet.getString("Fname"));
+                FacultyBean f = new FacultyBean();
+                f.setFacultyRemarks(resultSet.getString("Fremarks"));
+                f.setFacultyName(resultSet.getString("Fname"));
 //               f.setCreateAt(resultSet.getDate("createAt"));
-               f.setId(resultSet.getInt("Fid"));
-        //ab yeh faculty hum list m add krrna hai
-               facultyBeans.add(f);
+                f.setId(resultSet.getInt("Fid"));
+                //ab yeh faculty hum list m add krrna hai
+                facultyBeans.add(f);
 
-           }
+            }
 
 //            yeh hymmi resultset dyee ga
         } catch (Exception e) {
@@ -105,22 +105,26 @@ public class FacultyDao {
         }
         return facultyBeans;
     }
-    public FacultyBean delete(int facultyId) {
+
+    public int delete(int facultyId) {
+
         try {
             String query = "DELETE FROM faculty WHERE Fid = ?";
+
             PreparedStatement stmt = con.prepareStatement(query);
+
             stmt.setInt(1, facultyId);
 
-            int rs = stmt.executeUpdate();
-            if (rs > 0) {
-                System.out.println("Faculty  ID  deleted successfully" + facultyId);
-            } else {
-                System.out.println("No faculty here " + facultyId);
-            }
+             return stmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0;
         }
-    }
 
+    }
 }
+
+
+
+

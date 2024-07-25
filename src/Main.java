@@ -104,16 +104,25 @@ public class Main {
                 System.out.println("---------------------------------------------------");
 
             }
-        }else if (choice == 3) {
+        }
+        else if (choice == 3) {
+
+
             System.out.println("Enter Faculty ID to delete:");
             int id = ob.nextInt();
 
-            FacultyBean deleted = facultyDao.delete(id);
+            FacultyBean facultyBean = facultyDao.searchById(id);
+            if (facultyBean != null) {
+                int delete = facultyDao.delete(id);
+                if(delete>=1){
+                    System.out.println("Data Deleted given id: "+id);
+                }else{
 
-            if (deleted) {
-                System.out.println( " deleted successfull"  + id );
-            } else {
-                System.out.println("Failed to delete faculty with ID " + id );
+                    System.out.println("Data could not Deleted given id: "+id);
+                }
+            }else{
+
+                System.out.println("Data doesnt exist given id: "+id);
             }
         }
     }
