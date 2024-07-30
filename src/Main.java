@@ -1,3 +1,7 @@
+import been.FacultyBean;
+import dao.FacultyDao;
+import db.ConnectionProvider;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +31,9 @@ public class Main {
         if (select == 1){
             factuly();
         }
+        else if (select==2){
+            department();
+        }
 
     }
 
@@ -35,8 +42,8 @@ public class Main {
         System.out.println("Welcome to Faculty ");
         System.out.println("1. Add Faculty");
         System.out.println("2. Update  Faculty");
-        System.out.println("4. Delete Faculty");
-        System.out.println("5.  View Faculty");
+        System.out.println("3. Delete Faculty");
+        System.out.println("4.  View Faculty");
         System.out.println("EXIT");
         System.out.println("Enter Choice...");
         int choice = ob.nextInt();
@@ -93,7 +100,7 @@ public class Main {
                         ee.printStackTrace();
                     }
                 }
-        }  else if(choice==5){
+        }  else if(choice==4){
 
             ArrayList<FacultyBean> listoffac=facultyDao.getAll();
             for (FacultyBean f: listoffac) {
@@ -126,4 +133,6 @@ public class Main {
             }
         }
     }
+    static void department(){}
+
 }

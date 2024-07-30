@@ -1,3 +1,5 @@
+package been;
+
 import java.util.Date;
 
 public class FacultyBean {
@@ -16,7 +18,7 @@ public class FacultyBean {
 
     @Override
     public String toString() {
-        return "FacultyBean{" +
+        return "been.FacultyBean{" +
                 "id=" + id +
                 ", facultyName='" + facultyName + '\'' +
                 ", facultyRemarks='" + facultyRemarks + '\'' +
