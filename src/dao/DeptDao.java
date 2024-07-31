@@ -14,11 +14,11 @@ public class DeptDao {
         this.connection = connection;
     }
 
-    private int addDept(DepartmentBean departmentBean)throws Exception{
+    public int addDept(DepartmentBean departmentBean)throws Exception{
         FacultyDao facultyDao = new FacultyDao(connection);
-        FacultyBean facultyBean = facultyDao.searchById(departmentBean.getFacId());
+            FacultyBean facultyBean = facultyDao.searchById(departmentBean.getFacId());
         if(facultyBean!=null){
-            String query = "INSERT into department(deptName , deptRemarks, facId) VALUES(?,?,?)";
+            String query = "INSERT into department(deptName , deptRemarks, factId) VALUES(?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, departmentBean.getDeptName());
             preparedStatement.setString(2, departmentBean.getDeptRemarks());
@@ -28,6 +28,10 @@ public class DeptDao {
             throw new Exception("Faculty does not exist....");
         }
 
+    }
+
+    public int add(int a , int b){
+        return a+b;
     }
 }
 

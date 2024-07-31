@@ -1,4 +1,6 @@
+import been.DepartmentBean;
 import been.FacultyBean;
+import dao.DeptDao;
 import dao.FacultyDao;
 import db.ConnectionProvider;
 
@@ -32,7 +34,11 @@ public class Main {
             factuly();
         }
         else if (select==2){
-            department();
+            try {
+                department();
+            }catch (Exception ee){
+                ee.printStackTrace();
+            }
         }
 
     }
@@ -133,6 +139,40 @@ public class Main {
             }
         }
     }
-    static void department(){}
+    static void department() throws Exception {
+
+        DeptDao deptDao = new DeptDao(ConnectionProvider.getConnection());
+        System.out.println("1. Add Department");
+        System.out.println("2. Get ALl Departments");
+        System.out.println("ENter any Selection...");
+        int selectDept = ob.nextInt();
+
+        if(selectDept==1){
+            System.out.println("enter deptName...");
+            String deptName = ob.next();
+
+            System.out.println("enter deptRemarks...");
+            String deptRemarks = ob.next();
+
+            System.out.println("Enter FacultyID...");
+            int facId = ob.nextInt();
+
+            DepartmentBean departmentBean  = new DepartmentBean();
+
+            departmentBean.setDeptName(deptName);
+            departmentBean.setDeptRemarks(deptRemarks);
+            departmentBean.setFacId(facId);
+
+           int rows =  deptDao.addDept(departmentBean);
+           if(rows>=1){
+               System.out.println("Deaprtment Inseted SUccessfuly!");
+           }else {
+               System.out.println("COuld not inserted Successfully!");
+           }
+        }else{
+
+        }
+
+    }
 
 }

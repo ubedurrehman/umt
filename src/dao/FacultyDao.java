@@ -27,7 +27,6 @@ public class FacultyDao {
             stmt.setString(1, facultyBean.getFacultyName());
             stmt.setString(2, facultyBean.getFacultyRemarks());
             stmt.setString(3, facultyBean.getCreateAt().toString());
-
             int i = stmt.executeUpdate();
             if (i >= 1) {
                 System.out.println("INSERTED SUCCESSFULLY@");
